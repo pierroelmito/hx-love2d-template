@@ -2,11 +2,11 @@
 import love.Love;
 import love.event.EventModule;
 import love.graphics.GraphicsModule;
-import love.graphics.DrawMode;
 import love.graphics.FilterMode;
 import love.graphics.Image;
 import love.image.ImageModule;
 import love.window.WindowModule;
+import love.mouse.MouseModule;
 
 typedef Color = { r: Float, g: Float, b: Float, a: Float }
 
@@ -18,6 +18,7 @@ class Game
 	var frame: Float = 0;
 	var img1: Image = null;
 	var img2: Image = null;
+	var img3: Image = null;
 
 	public function new() {
 	}
@@ -38,6 +39,7 @@ class Game
 
 	public function load(args: lua.Table<Dynamic,Dynamic>) {
 		WindowModule.setTitle("yolo");
+		MouseModule.setVisible(false);
 		img1 = genImage(16, 16, false, function (x, y) {
 			return { r:(x ^ y) & 1, g:1, b:1, a:1 };
 		});
@@ -46,6 +48,7 @@ class Game
 			var v = 1 - Math.min(1, Math.sqrt(dx * dx + dy * dy));
 			return { r:1, g:1, b:1, a:v };
 		});
+		img3 = GraphicsModule.newImage("crosshair.png");
 	}
 
 	public function draw(): Void {
@@ -59,7 +62,7 @@ class Game
 		GraphicsModule.draw(img2, cx + r * Math.cos(0.07 * frame), cy + r * Math.sin(0.08 * frame),  0, s2, s2, 0.5 * sz.width, 0.5 * sz.height);
 		if (vis) {
 			GraphicsModule.setColor(0.0, 1.0, 0.0, 1.0);
-			GraphicsModule.rectangle(DrawMode.Fill, x - 10, y - 10, 20, 20);
+			GraphicsModule.draw(img3, x - 8, y - 8);
 		}
 	}
 
