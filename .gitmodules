@@ -1,0 +1,4 @@
+[submodule "hx-love2d"]
+	path = hx-love2d
+	url = https://github.com/redchew/hx-love2d.git
+	branch = master
