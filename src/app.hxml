@@ -1,0 +1,6 @@
+-main Main.hx
+-lua ../version/main.lua
+-cp ../hx-love2d/src
+--dce full
+-D lua-jit
+-D lua-vanilla
